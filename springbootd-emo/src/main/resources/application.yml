@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/heima
+    username: root
+    password: root
+mybatis:
+  type-aliases-package: cn.itheima.pojo
