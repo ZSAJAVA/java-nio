@@ -79,7 +79,7 @@ public class Count {
         int length = sb.toString().length();
 
         System.out.println("字符个哈哈哈数："+length);
-
+        System.out.println("字符个哈哈哈数："+length);
 
         br.close();
 
