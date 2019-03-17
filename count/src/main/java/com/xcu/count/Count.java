@@ -78,7 +78,7 @@ public class Count {
         //字符数
         int length = sb.toString().length();
 
-        System.out.println("字符数："+length);
+        System.out.println("字符个数："+length);
 
 
         br.close();
