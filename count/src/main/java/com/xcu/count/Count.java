@@ -1,10 +1,10 @@
 package com.xcu.count;
 
 import java.io.BufferedReader;
+import java.io.FileOutputStream;
 import java.io.FileReader;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.io.PrintWriter;
+import java.util.*;
 
 /**
  * @author ShouAn.Zhang
@@ -15,9 +15,9 @@ public class Count {
     public static void main(String[] args) throws  Exception {
 
         //统计单词个数
-        BufferedReader br = new BufferedReader(new FileReader("d:/wl/test.txt"));
+        BufferedReader br = new BufferedReader(new FileReader("d:/wl/小王子英文版.txt"));
 
-        Map<String,Integer> map = new HashMap<String, Integer>();
+        Map<String,Integer> map = new TreeMap<String, Integer>();
 
         String line;
 
@@ -64,13 +64,33 @@ public class Count {
             }
         }
 
-        Set<String> keys = map.keySet();
 
-        for (String key : keys) {
 
-            System.out.println(key + "有：" + map.get(key) + "个.");
 
+
+
+
+//        Set<String> keys = map.keySet();
+//
+//        for (String key : keys) {
+//
+//            System.out.println(key + "有：" + map.get(key) + "个.");
+//
+//        }
+
+
+        List<Map.Entry<String,Integer>> list = new ArrayList<Map.Entry<String,Integer>>(map.entrySet());
+
+        Collections.sort(list, new Comparator<Map.Entry<String, Integer>>() {
+            public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
+                return  o1.getValue().compareTo(o2.getValue());
+            }
+        });
+
+        for(Map.Entry<String,Integer> mapping:list){
+            System.out.println(mapping.getKey()+"的个数:"+mapping.getValue());
         }
+
 
         //单词总个数
         System.out.println("单词总个数："+countWordNm);
@@ -78,11 +98,26 @@ public class Count {
         //字符数
         int length = sb.toString().length();
 
-        System.out.println("字符个哈哈哈数："+length);
-        System.out.println("字符个哈哈哈数："+length);
+        System.out.println("字符个数："+length);
+
+        //结果写入文件  输出文件地址
+
+        PrintWriter writer = new PrintWriter(new FileOutputStream("d:/wl/resut.txt"), true);
+        Iterator<String> iterator = map.keySet().iterator();
+
+
+        while (iterator.hasNext()){
+            String word = iterator.next().toString();
+            int num = Integer.parseInt(map.get(word).toString());
+            writer.println(word + "有" + num+"个");
+
+        }
+        writer.println("单词总个数："+countWordNm);
+        writer.println("字符个数："+length);
+
 
         br.close();
-
+        writer.close();
 
 
     }
